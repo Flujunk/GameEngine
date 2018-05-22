@@ -101,7 +101,6 @@ public class Camera {
 		distanceFromPlayer -= zoomLevel;
 	}
 	*/
-	//hello
 	private void calculatePitch() {
 		
 			float pitchChange = Mouse.getDY() * 0.1f;
