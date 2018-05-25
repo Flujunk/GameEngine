@@ -9,11 +9,10 @@ import terrains.Terrain;
 
 public class Player extends Entity{
 	
-	private static final float RUN_SPEED = 20;
+	private static float RUN_SPEED = 20;
 	private static final float GRAVITY = -50;
 	private static final float JUMP_POWER = 30;
-	
-	private static final float TERRAIN_HEIGHT = 0;
+	public static final String Entity = null;
 	
 	private float currentSpeed = 0;
 	private float currentTurnSpeed = 0;
@@ -23,6 +22,9 @@ public class Player extends Entity{
 	
 	public Player(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale) {
 		super(model, position, rotX, rotY, rotZ, scale);
+	}
+	public void Item(TexturedModel model) {
+		
 	}
 	
 	public void move(Terrain terrain) {
@@ -40,7 +42,19 @@ public class Player extends Entity{
 			upwardsSpeed = 0;
 			isInAir = false;
 			super.getPosition().y = terrainHeight;
-			
+		}
+		//invisible walls
+		if(super.getPosition().x < 1) {
+			super.getPosition().x = super.getPosition().x + 1;
+		}
+		if(super.getPosition().x > 799) {
+			super.getPosition().x = super.getPosition().x - 1;
+		}
+		if(super.getPosition().z > -1){
+			super.getPosition().z = super.getPosition().z - 1;
+		}
+		if(super.getPosition().z < -799){
+			super.getPosition().z = super.getPosition().z + 1;
 		}
 		
 	}

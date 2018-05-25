@@ -6,10 +6,11 @@ import models.TexturedModel;
 
 public class Entity {
 	
-	private TexturedModel model;
-	private Vector3f position;
+	protected TexturedModel model;
+	private static Vector3f position;
 	private float rotX, rotY, rotZ;
 	private float scale;
+
 	
 	private int textureIndex = 0;
 	
@@ -66,7 +67,7 @@ public class Entity {
 		this.model = model;
 	}
 
-	public Vector3f getPosition() {
+	public static Vector3f getPosition() {
 		return position;
 	}
 
