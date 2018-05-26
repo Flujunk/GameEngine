@@ -27,7 +27,7 @@ public class Camera {
 	
 	public void move() {
 		
-		//calculateZoom();
+		calculateZoom();
 		calculatePitch();
 		calculateAngleAroundPlayer();
 		float horizontalDistance = calculateHorizontalDistance();
@@ -95,12 +95,12 @@ public class Camera {
 		return vD;
 	}
 	
-	/*
+	
 	private void calculateZoom() {
 		float zoomLevel = Mouse.getDWheel() * 0.1f;
 		distanceFromPlayer -= zoomLevel;
 	}
-	*/
+	
 	private void calculatePitch() {
 		
 			float pitchChange = Mouse.getDY() * 0.1f;
