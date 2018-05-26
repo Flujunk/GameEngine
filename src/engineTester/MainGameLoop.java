@@ -40,7 +40,7 @@ public class MainGameLoop {
         TerrainTexture bTexture = new TerrainTexture(loader.loadTexture("path"));
         
         TerrainTexturePack texturePack = new TerrainTexturePack(backgroundTexture, rTexture, gTexture, bTexture);
-        TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("blendMap"));
+        TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("myBlendMap"));
          
         RawModel model = OBJLoader.loadObjModel("tree", loader);
         
