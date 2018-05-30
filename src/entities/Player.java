@@ -20,6 +20,12 @@ public class Player extends Entity{
 	
 	private boolean isInAir = false;
 	
+	public static int x = 5;
+	public static int y = 5;
+	public static int width = 50;
+	public static int height = 50;
+		
+	
 	public Player(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale) {
 		super(model, position, rotX, rotY, rotZ, scale);
 	}
@@ -56,7 +62,20 @@ public class Player extends Entity{
 		if(super.getPosition().z < -799){
 			super.getPosition().z = super.getPosition().z + 1;
 		}
+		if(Player.x < super.getPosition().x + super.getPosition().z && 
+				Player.x + Player.x > super.getPosition().x &&
+				Player.y < super.getPosition().y + super.getPosition().y && 
+				Player.y + super.getPosition().y > super.getPosition().y)
+			{
+			    System.out.println("Collision Detected");
+			}
+
 		
+	}
+	
+	public class Vector2Float
+	{
+	   public float x, y;
 	}
 	
 	private void jump() {

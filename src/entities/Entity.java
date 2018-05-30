@@ -12,6 +12,11 @@ public class Entity {
     private float scale;
      
     private int textureIndex = 0;
+    
+	public static int x = 5;
+	public static int y = 5;
+	public static int width = 50;
+	public static int height = 50;
  
     public Entity(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale) {
         this.model = model;
