@@ -46,7 +46,7 @@ public class MainGameLoop {
         TexturedModel staticModel = new TexturedModel(model, new ModelTexture(loader.loadTexture("tree")));
         TexturedModel grass = new TexturedModel(OBJLoader.loadObjModel("grassModel", loader), new ModelTexture(loader.loadTexture("grassTexture")));
         TexturedModel flower = new TexturedModel(OBJLoader.loadObjModel("grassModel", loader), new ModelTexture(loader.loadTexture("flower")));
-        //TexturedModel rock = new TexturedModel(OBJLoader.loadObjModel("rock", loader), new ModelTexture(loader.loadTexture("rock")));
+        TexturedModel rock = new TexturedModel(OBJLoader.loadObjModel("rock", loader), new ModelTexture(loader.loadTexture("rock")));
 
         ModelTexture fernTextureAtlas = new ModelTexture(loader.loadTexture("fern"));
         fernTextureAtlas.setNumberOfRows(2);
@@ -63,6 +63,7 @@ public class MainGameLoop {
         flower.getTexture().setHasTransparency(true);
         flower.getTexture().setUseFakeLighting(true);
         fern.getTexture().setHasTransparency(true);
+        
         
 
     	Terrain terrain = new Terrain(0, -1, loader, texturePack, blendMap, "myHeightMap");
@@ -84,6 +85,8 @@ public class MainGameLoop {
             	x = random.nextFloat() * 800 - 400;
             	z = random.nextFloat() * -600;
             	y = terrain.getHeightOfTerrain(x,  z);
+            	entities.add(new Entity(bobble, new Vector3f(x, y, z), 0, random.nextFloat() * 360, 0, random.nextFloat() * 0.1f + 1.0f));
+
             }
 			
         }
@@ -93,9 +96,6 @@ public class MainGameLoop {
     	float x = random.nextFloat() * 800 - 400;
     	float z = random.nextFloat() * -600;
     	float y = terrain.getHeightOfTerrain(x, z);
-
-    	entities.add(new Entity(bobble, new Vector3f(x + 100, y, z + 100), 0, random.nextFloat() * 360, 0, random.nextFloat() * 0.1f + 1.0f));
-
 	
         lights.add(new Light(new Vector3f(0, 1000, -7000), new Vector3f(0.4f, 0.4f, 0.4f)));
         
@@ -113,8 +113,12 @@ public class MainGameLoop {
         RawModel bunnyModel = OBJLoader.loadObjModel("person", loader);
         TexturedModel stanfordBunny = new TexturedModel(bunnyModel, new ModelTexture(loader.loadTexture("playerTexture")));
         
+
+        
         Player player = new Player(stanfordBunny, new Vector3f(100, 0, -50), 0, 0, 0, 1);
         Camera camera = new Camera(player);   
+        
+
         
         List<GuiTexture> guis = new ArrayList<GuiTexture>();
         //GuiTexture gui = new GuiTexture(loader.loadTexture("socuwan"), new Vector2f(-0.5f, 0.5f), new Vector2f(0.25f, 0.25f));
@@ -124,6 +128,10 @@ public class MainGameLoop {
         //guis.add(gui2);
 
         GuiRenderer guiRenderer = new GuiRenderer(loader);
+        
+        
+
+
          
         while(!Display.isCloseRequested()){
             player.move(terrain);
