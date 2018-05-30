@@ -18,7 +18,6 @@ import terrains.Terrain;
 import textures.ModelTexture;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
-import textures.TextureData;
 import entities.Camera;
 import entities.Entity;
 import entities.Light;
@@ -39,11 +38,11 @@ public class MainGameLoop {
         TerrainTexture bTexture = new TerrainTexture(loader.loadTexture("path"));
         
         TerrainTexturePack texturePack = new TerrainTexturePack(backgroundTexture, rTexture, gTexture, bTexture);
-        TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("myBlendMap"));
+        TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("blendMap"));
          
         RawModel model = OBJLoader.loadObjModel("tree", loader);
         
-        TexturedModel staticModel = new TexturedModel(model, new ModelTexture(loader.loadTexture("tree")));
+        //TexturedModel staticModel = new TexturedModel(model, new ModelTexture(loader.loadTexture("tree")));
         TexturedModel grass = new TexturedModel(OBJLoader.loadObjModel("grassModel", loader), new ModelTexture(loader.loadTexture("grassTexture")));
         TexturedModel flower = new TexturedModel(OBJLoader.loadObjModel("grassModel", loader), new ModelTexture(loader.loadTexture("flower")));
         //TexturedModel rock = new TexturedModel(OBJLoader.loadObjModel("rock", loader), new ModelTexture(loader.loadTexture("rock")));
@@ -65,16 +64,19 @@ public class MainGameLoop {
         fern.getTexture().setHasTransparency(true);
         
 
-    	Terrain terrain = new Terrain(0, -1, loader, texturePack, blendMap, "myHeightMap");
+    	Terrain terrain = new Terrain(0, -1, loader, texturePack, blendMap, "heightMap");
     	//Terrain terrain2 = new Terrain(1, 0, loader, texturePack, blendMap, "myHeightMap");
-         
+  
+    	
         List<Entity> entities = new ArrayList<Entity>();
+        List<Light> lights = new ArrayList<Light>();
         Random random = new Random(676452);
         for(int i = 0; i < 400; i++){
             if(i % 20 == 0) {
             	float x = random.nextFloat() * 800 - 400;
             	float z = random.nextFloat() * -600;
             	float y = terrain.getHeightOfTerrain(x, z);
+            	entities.add(new Entity(bobble, new Vector3f(x, y, z), 0, random.nextFloat() * 360, 0, random.nextFloat() * 0.1f + 1.0f));
 
             }
             if(i % 5 == 0) {
@@ -84,29 +86,26 @@ public class MainGameLoop {
             	x = random.nextFloat() * 800 - 400;
             	z = random.nextFloat() * -600;
             	y = terrain.getHeightOfTerrain(x,  z);
+
+
             }
 			
         }
-         
-        List<Light> lights = new ArrayList<Light>();
-        
     	float x = random.nextFloat() * 800 - 400;
     	float z = random.nextFloat() * -600;
-    	float y = terrain.getHeightOfTerrain(x, z);
-
-    	entities.add(new Entity(bobble, new Vector3f(x + 100, y, z + 100), 0, random.nextFloat() * 360, 0, random.nextFloat() * 0.1f + 1.0f));
-
-	
+    	float y = terrain.getHeightOfTerrain(x,  z);
+    			
         lights.add(new Light(new Vector3f(0, 1000, -7000), new Vector3f(0.4f, 0.4f, 0.4f)));
-        
-        entities.add(new Entity(lamp, random.nextInt(4), new Vector3f(x, y, z), 0, random.nextFloat() * 360, 0, 0.9f));
+       
+        entities.add(new Entity(lamp, random.nextInt(4), new Vector3f(x, terrain.getHeightOfTerrain(x,  z), z), 0, random.nextFloat() * 360, 0, 0.9f));
         lights.add(new Light(new Vector3f(x, y + 20, z), new Vector3f(2, 0, 0), new Vector3f(1, 0.01f, 0.002f)));
         
-        entities.add(new Entity(lamp, new Vector3f(x + 20, y, z), 0, 0, 0, 1));
+        entities.add(new Entity(lamp, new Vector3f(x + 20, terrain.getHeightOfTerrain(x,  z), z), 0, 0, 0, 1));
         lights.add(new Light(new Vector3f(x + 20, y + 20, z), new Vector3f(0, 2, 0), new Vector3f(1, 0.01f, 0.002f)));
-
-        entities.add(new Entity(lamp, new Vector3f(x + 40, y, z), 0, 0, 0, 1));
+        
+        entities.add(new Entity(lamp, new Vector3f(x + 40, terrain.getHeightOfTerrain(x,  z), z), 0, 0, 0, 1));
         lights.add(new Light(new Vector3f(x + 40, y + 20, z), new Vector3f(2, 2, 0), new Vector3f(1, 0.01f, 0.002f)));
+
 
         MasterRenderer renderer = new MasterRenderer(loader);
         
