@@ -42,10 +42,13 @@ public class Entity {
         return (float)row/(float)model.getTexture().getNumberOfRows();
     }
  
-    public void increasePosition(float dx, float dy, float dz) {
+    public void increasePosition(float dx, float dy, float dz, float dxSideways, float dzSideways) {
         this.position.x += dx;
         this.position.y += dy;
         this.position.z += dz;
+        this.position.x += dxSideways;
+        this.position.z += dzSideways;
+        
     }
  
     public void increaseRotation(float dx, float dy, float dz) {

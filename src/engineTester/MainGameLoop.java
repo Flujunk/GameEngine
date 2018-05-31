@@ -7,9 +7,10 @@ import java.util.Random;
 import models.RawModel;
 import models.TexturedModel;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector3f;
- 
+
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
 import renderEngine.MasterRenderer;
@@ -76,8 +77,6 @@ public class MainGameLoop {
             	float x = random.nextFloat() * 800 - 400;
             	float z = random.nextFloat() * -600;
             	float y = terrain.getHeightOfTerrain(x, z);
-            	entities.add(new Entity(bobble, new Vector3f(x, y, z), 0, random.nextFloat() * 360, 0, random.nextFloat() * 0.1f + 1.0f));
-
             }
             if(i % 5 == 0) {
             	float x = random.nextFloat() * 800 - 400;
@@ -91,9 +90,12 @@ public class MainGameLoop {
             }
 			
         }
-    	float x = random.nextFloat() * 800 - 400;
-    	float z = random.nextFloat() * -600;
+    	float x = 150;
+    	float z = -50;
     	float y = terrain.getHeightOfTerrain(x,  z);
+    	
+    	entities.add(new Entity(bobble, new Vector3f(x, y, z), 0, random.nextFloat() * 360, 0, random.nextFloat() * 0.1f + 1.0f));
+
     			
         lights.add(new Light(new Vector3f(0, 1000, -7000), new Vector3f(0.4f, 0.4f, 0.4f)));
        
@@ -113,8 +115,11 @@ public class MainGameLoop {
         TexturedModel stanfordBunny = new TexturedModel(bunnyModel, new ModelTexture(loader.loadTexture("playerTexture")));
         
         Player player = new Player(stanfordBunny, new Vector3f(100, 0, -50), 0, 0, 0, 1);
-        Camera camera = new Camera(player);   
+        Camera camera = new Camera(player);  
         
+
+
+		
         List<GuiTexture> guis = new ArrayList<GuiTexture>();
         //GuiTexture gui = new GuiTexture(loader.loadTexture("socuwan"), new Vector2f(-0.5f, 0.5f), new Vector2f(0.25f, 0.25f));
         //GuiTexture gui2 = new GuiTexture(loader.loadTexture("thinmatrix"), new Vector2f(0.30f, 0.58f), new Vector2f(0.4f, 0.4f));
@@ -123,7 +128,7 @@ public class MainGameLoop {
         //guis.add(gui2);
 
         GuiRenderer guiRenderer = new GuiRenderer(loader);
-         
+        
         while(!Display.isCloseRequested()){
             player.move(terrain);
             camera.move();
